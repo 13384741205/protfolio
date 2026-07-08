@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { TextScramble } from '../utils/textScramble';
 import './Navbar.css';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef(null);
+  const logoRef = useRef(null);
+  const scramblerRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -25,10 +28,21 @@ export default function Navbar() {
         stagger: 0.08,
         duration: 0.6,
         ease: 'power3.out',
-        delay: 0.3,
+        delay: 4.3,
       });
     }
+
+    // Logo scramble on hover
+    if (logoRef.current) {
+      scramblerRef.current = new TextScramble(logoRef.current);
+    }
   }, []);
+
+  const handleLogoHover = () => {
+    if (scramblerRef.current) {
+      scramblerRef.current.setText('Portfolio');
+    }
+  };
 
   const links = [
     { label: 'About', href: '#about' },
@@ -40,8 +54,8 @@ export default function Navbar() {
   return (
     <nav ref={navRef} className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner container">
-        <a href="#" className="navbar__logo magnetic">
-          <span className="navbar__logo-dot">◆</span> Portfolio
+        <a href="#" className="navbar__logo magnetic" onMouseEnter={handleLogoHover}>
+          <span className="navbar__logo-dot">◆</span> <span ref={logoRef}>Portfolio</span>
         </a>
         <div className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
           {links.map(l => (
