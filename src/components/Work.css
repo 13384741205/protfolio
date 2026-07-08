@@ -1,0 +1,113 @@
+.work {
+  padding: 140px 0;
+  position: relative;
+}
+.work__header {
+  margin-bottom: 64px;
+}
+.work__section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+.work__section-line {
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+}
+.work__heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3vw, 48px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.work__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.work__card {
+  cursor: pointer;
+}
+.work__card-image-wrap {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.work__card:hover .work__card-image-wrap {
+  transform: scale(1.015);
+}
+.work__card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.5s;
+}
+.work__card:hover .work__card-image {
+  opacity: 1;
+}
+.work__card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.5);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.work__card:hover .work__card-overlay {
+  opacity: 1;
+}
+.work__card-view {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  padding: 12px 28px;
+  border: 1px solid var(--accent);
+  border-radius: 100px;
+}
+.work__card-info {
+  padding: 20px 4px;
+}
+.work__card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.work__card-category {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.work__card-year {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.work__card-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+}
+.work__card:hover .work__card-title {
+  color: var(--accent);
+}
+@media (max-width: 1024px) {
+  .work__grid {
+    grid-template-columns: 1fr;
+  }
+}

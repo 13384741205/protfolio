@@ -1,0 +1,4 @@
+/* App-level resets — everything lives in component CSS */
+main {
+  overflow: hidden;
+}
