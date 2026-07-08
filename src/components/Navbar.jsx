@@ -79,7 +79,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        <button className="navbar__burger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+        <button className="navbar__burger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" aria-expanded={menuOpen}>
           <span /><span /><span />
         </button>
       </div>

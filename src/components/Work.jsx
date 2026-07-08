@@ -131,7 +131,7 @@ export default function Work() {
           {PROJECTS.map((p, i) => (
             <div className="work__card" key={i}>
               <div className="work__card-image-wrap" style={{ background: p.color }}>
-                <img src={p.image} alt={p.title} className="work__card-image" />
+                <img src={p.image} alt={p.title} loading="lazy" className="work__card-image" />
                 <div className="work__card-overlay">
                   <span className="work__card-view">View Project →</span>
                 </div>

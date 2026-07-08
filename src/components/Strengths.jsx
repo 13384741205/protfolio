@@ -14,7 +14,7 @@ const STRENGTHS = [
     desc: 'Expert in responsive design and mobile adaptation solutions, ensuring websites display perfectly across all devices.',
   },
   {
-    icon: '',
+    icon: '◇',
     title: 'Design System',
     desc: 'Extensive experience in building and maintaining design systems with 100+ components and guidelines, boosting team collaboration efficiency by 40%.',
   },

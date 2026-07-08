@@ -144,7 +144,7 @@ const GooeyNav = ({
 
   return (
     <div ref={containerRef} className="gooey-nav-container">
-      <nav ref={navRef}>
+      <nav ref={navRef} aria-label="Navigation">
         <ul>
           {items.map((item, index) => (
             <li

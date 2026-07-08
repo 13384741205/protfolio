@@ -295,7 +295,7 @@ const ProfileCardComponent = ({
                 </div>
               </div>
               {onContactClick && (
-                <button className="pc-contact-btn" onClick={handleContactClick}>
+                <button className="pc-contact-btn" onClick={handleContactClick} aria-label="Contact">
                   {contactText}
                 </button>
               )}
