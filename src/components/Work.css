@@ -1,5 +1,5 @@
 .work {
-  padding: 120px 0;
+  padding: 140px 0;
   position: relative;
 }
 
@@ -35,6 +35,18 @@
   letter-spacing: 0.02em;
 }
 
+.work__heading .word {
+  display: inline-block;
+  overflow: hidden;
+  margin-right: 0.25em;
+}
+
+.work__heading .word-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
 .work__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -42,7 +54,11 @@
 }
 
 .work__card {
-  cursor: pointer;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  .work__card { cursor: pointer; }
 }
 
 .work__card-image-wrap {
@@ -55,7 +71,7 @@
 }
 
 .work__card:hover .work__card-image-wrap {
-  transform: scale(1.01);
+  transform: scale(1.02);
   border-color: var(--border-hover);
 }
 
@@ -66,6 +82,7 @@
   opacity: 0.75;
   filter: grayscale(20%) contrast(1.05);
   transition: opacity 0.4s, filter 0.4s;
+  will-change: transform;
 }
 
 .work__card:hover .work__card-image {

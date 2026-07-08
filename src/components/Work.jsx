@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import './Work.css';
 
 const PROJECTS = [
@@ -46,10 +48,76 @@ const PROJECTS = [
 ];
 
 export default function Work() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Heading reveal
+      const heading = sectionRef.current?.querySelector('.work__heading');
+      if (heading) {
+        const words = heading.innerHTML.split(/(\s+)/);
+        heading.innerHTML = words.map((w) => 
+          `<span class="word"><span class="word-inner">${w}</span></span>`
+        ).join('');
+        
+        gsap.to(heading.querySelectorAll('.word-inner'), {
+          y: 0,
+          duration: 0.8,
+          stagger: 0.06,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: heading,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
+
+      // Cards with 3D tilt on scroll
+      const cards = sectionRef.current?.querySelectorAll('.work__card');
+      if (cards) {
+        gsap.fromTo(cards, {
+          opacity: 0,
+          y: 80,
+          rotateX: 8,
+        }, {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          stagger: 0.12,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.work__grid',
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
+
+      // Image parallax inside cards
+      gsap.utils.toArray('.work__card-image').forEach((img) => {
+        gsap.to(img, {
+          yPercent: -8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: img.closest('.work__card-image-wrap'),
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          },
+        });
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="work" id="work">
+    <section ref={sectionRef} className="work" id="work">
       <div className="container">
-        <div className="work__header reveal">
+        <div className="work__header section-reveal">
           <div className="work__section-label">
             <span className="work__section-line" />
             Selected Work
@@ -61,7 +129,7 @@ export default function Work() {
 
         <div className="work__grid">
           {PROJECTS.map((p, i) => (
-            <div className="work__card reveal" key={i}>
+            <div className="work__card" key={i}>
               <div className="work__card-image-wrap" style={{ background: p.color }}>
                 <img src={p.image} alt={p.title} className="work__card-image" />
                 <div className="work__card-overlay">

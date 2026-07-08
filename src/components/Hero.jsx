@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
 import './Hero.css';
 
 function CyberpunkIntro() {
@@ -12,7 +13,7 @@ function CyberpunkIntro() {
     let animId;
     let w, h;
     let startTime = Date.now();
-    const INTRO_DURATION = 4000; // 4 seconds intro
+    const INTRO_DURATION = 4000;
 
     const resize = () => {
       w = canvas.width = window.innerWidth;
@@ -21,7 +22,6 @@ function CyberpunkIntro() {
     resize();
     window.addEventListener('resize', resize);
 
-    // Particle system for face silhouette
     const particles = [];
     const particleCount = Math.floor((w * h) / 600);
     
@@ -33,30 +33,25 @@ function CyberpunkIntro() {
 
       const colorRoll = Math.random();
       let color;
-      if (colorRoll < 0.4) {
-        color = { r: 0, g: 229, b: 255 }; // Cyan
-      } else if (colorRoll < 0.6) {
-        color = { r: 255, g: 0, b: 110 }; // Magenta
-      } else {
+      if (colorRoll < 0.4) color = { r: 0, g: 229, b: 255 };
+      else if (colorRoll < 0.6) color = { r: 255, g: 0, b: 110 };
+      else {
         const brightness = 180 + Math.floor(Math.random() * 75);
         color = { r: brightness, g: brightness, b: brightness + 20 };
       }
 
       particles.push({
-        x,
-        y,
-        baseX: x,
-        baseY: y,
+        x, y, baseX: x, baseY: y,
         size: Math.random() * 2 + 0.5,
         color,
         speed: 0.2 + Math.random() * 0.5,
         phase: Math.random() * Math.PI * 2,
         alpha: 0,
         targetAlpha: 0.3 + Math.random() * 0.7,
+        glitchOffset: 0,
       });
     }
 
-    // Glitch blocks
     const glitchBlocks = [];
     for (let i = 0; i < 8; i++) {
       glitchBlocks.push({
@@ -65,7 +60,6 @@ function CyberpunkIntro() {
         width: 50 + Math.random() * 200,
         height: 2 + Math.random() * 4,
         alpha: 0,
-        speed: 0.5 + Math.random() * 1,
       });
     }
 
@@ -73,7 +67,6 @@ function CyberpunkIntro() {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / INTRO_DURATION, 1);
 
-      // Fade to black at end
       if (progress > 0.85) {
         const fadeProgress = (progress - 0.85) / 0.15;
         ctx.fillStyle = `rgba(5, 5, 8, ${fadeProgress})`;
@@ -83,7 +76,6 @@ function CyberpunkIntro() {
         ctx.fillRect(0, 0, w, h);
       }
 
-      // Draw particles with reveal animation
       const revealRadius = progress * Math.max(w, h) * 0.8;
       
       for (const p of particles) {
@@ -95,24 +87,22 @@ function CyberpunkIntro() {
           p.alpha += (p.targetAlpha - p.alpha) * 0.05;
         }
 
-        // Glitch displacement
         if (Math.random() < 0.002) {
           p.glitchOffset = (Math.random() - 0.5) * 40;
         } else {
-          p.glitchOffset = (p.glitchOffset || 0) * 0.9;
+          p.glitchOffset *= 0.9;
         }
 
         const floatX = Math.sin(elapsed * 0.001 * p.speed + p.phase) * 2;
         const floatY = Math.cos(elapsed * 0.0007 * p.speed + p.phase) * 1.5;
 
-        const drawX = p.baseX + floatX + (p.glitchOffset || 0);
+        const drawX = p.baseX + floatX + p.glitchOffset;
         const drawY = p.baseY + floatY;
 
         ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${p.alpha})`;
         ctx.fillRect(drawX, drawY, p.size, p.size);
       }
 
-      // Draw glitch blocks
       for (const block of glitchBlocks) {
         if (Math.random() < 0.01) {
           block.alpha = 0.3 + Math.random() * 0.4;
@@ -131,12 +121,10 @@ function CyberpunkIntro() {
         }
       }
 
-      // Horizontal scan line
       const scanY = (elapsed * 0.1) % h;
       ctx.fillStyle = 'rgba(0, 229, 255, 0.1)';
       ctx.fillRect(0, scanY, w, 2);
 
-      // Occasional full-screen glitch
       if (Math.random() < 0.003) {
         ctx.fillStyle = `rgba(0, 229, 255, ${0.05 + Math.random() * 0.1})`;
         ctx.fillRect(0, 0, w, h);
@@ -149,7 +137,6 @@ function CyberpunkIntro() {
       }
     };
 
-    // Initial clear
     ctx.fillStyle = '#050508';
     ctx.fillRect(0, 0, w, h);
     draw();
@@ -168,30 +155,101 @@ function CyberpunkIntro() {
   );
 }
 
-function AnimatedText({ children, className, delay = 0 }) {
-  const [visible, setVisible] = useState(false);
+export default function Hero() {
+  const heroRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
+    const ctx = gsap.context(() => {
+      // After intro, animate content in
+      const tl = gsap.timeline({ delay: 4.2 });
+
+      tl.fromTo('.hero__tag', {
+        opacity: 0,
+        y: 30,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+      });
+
+      // Title lines stagger
+      tl.fromTo('.hero__title-line', {
+        opacity: 0,
+        y: 60,
+        clipPath: 'inset(0 0 100% 0)',
+      }, {
+        opacity: 1,
+        y: 0,
+        clipPath: 'inset(0 0 0% 0)',
+        duration: 1,
+        stagger: 0.15,
+        ease: 'power4.out',
+      }, '-=0.4');
+
+      tl.fromTo('.hero__subtitle', {
+        opacity: 0,
+        y: 30,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+      }, '-=0.5');
+
+      tl.fromTo('.hero__btn', {
+        opacity: 0,
+        y: 30,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.12,
+        ease: 'power3.out',
+      }, '-=0.4');
+
+      tl.fromTo('.hero__scroll', {
+        opacity: 0,
+      }, {
+        opacity: 1,
+        duration: 0.6,
+      }, '-=0.2');
+
+      // Magnetic button effect
+      document.querySelectorAll('.hero__btn').forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, {
+            x: x * 0.3,
+            y: y * 0.3,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: 'elastic.out(1, 0.5)',
+          });
+        });
+      });
+
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <span className={`${className} ${visible ? 'visible' : ''}`}>
-      {children}
-    </span>
-  );
-}
-
-export default function Hero() {
-  return (
-    <section className="hero" id="hero">
+    <section ref={heroRef} className="hero" id="hero">
       <CyberpunkIntro />
       <div className="hero__scanlines" />
       <div className="hero__vignette" />
       <div className="hero__glitch-line" />
 
-      {/* Content */}
       <div className="hero__content container">
         <div className="hero__tag">
           <span className="hero__tag-dot" />
@@ -199,44 +257,37 @@ export default function Hero() {
         </div>
         
         <h1 className="hero__title">
-          <AnimatedText className="hero__title-line" delay={4200}>
+          <span className="hero__title-line">
             <span
               className="hero__glitch-title"
               data-text="Crafting Digital"
             >
               Crafting <em>Digital</em>
             </span>
-          </AnimatedText>
+          </span>
           <br />
-          <AnimatedText className="hero__title-line" delay={4400}>
-            Experiences That
-          </AnimatedText>
+          <span className="hero__title-line">Experiences That</span>
           <br />
-          <AnimatedText className="hero__title-line hero__title-line--accent" delay={4600}>
+          <span className="hero__title-line hero__title-line--accent">
             <span className="hero__title-accent">Resonate</span>
-          </AnimatedText>
+          </span>
         </h1>
         
-        <AnimatedText className="hero__subtitle" delay={4800}>
+        <p className="hero__subtitle">
           5年以上UI设计经验，专注于网站界面设计与用户体验优化。曾为英国Blackpool多家餐厅及国内企业打造兼具美感与实用性的数字产品，追求像素级完美。
-        </AnimatedText>
+        </p>
         
         <div className="hero__actions">
-          <AnimatedText delay={5000}>
-            <a href="#work" className="hero__btn hero__btn--primary">
-              View Projects
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-          </AnimatedText>
-          <AnimatedText delay={5100}>
-            <a href="#contact" className="hero__btn hero__btn--ghost">Contact Me</a>
-          </AnimatedText>
+          <a href="#work" className="hero__btn hero__btn--primary magnetic">
+            View Projects
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+          <a href="#contact" className="hero__btn hero__btn--ghost magnetic">Contact Me</a>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="hero__scroll">
         <div className="hero__scroll-line" />
         <span>Scroll</span>
