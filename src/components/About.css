@@ -164,3 +164,21 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.about__profile-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: visible;
+  margin-bottom: 24px;
+}
+
+.about__profile-card .pc-card {
+  height: auto;
+  max-height: 540px;
+  aspect-ratio: 0.718;
+}
+
+.about__profile-card .pc-card-wrapper {
+  width: 100%;
+  max-width: 340px;
+}

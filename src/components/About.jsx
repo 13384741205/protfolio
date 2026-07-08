@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import ProfileCard from './ProfileCard';
 import './About.css';
 
 const STATS = [
@@ -11,24 +12,9 @@ const STATS = [
 
 export default function About() {
   const sectionRef = useRef(null);
-  const imageRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax on image
-      if (imageRef.current) {
-        gsap.to(imageRef.current, {
-          yPercent: -10,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-      }
-
       // Heading word-by-word reveal
       const heading = sectionRef.current?.querySelector('.about__heading');
       if (heading) {
@@ -86,6 +72,24 @@ export default function About() {
         },
       });
 
+      // ProfileCard entrance
+      gsap.fromTo('.about__profile-card', {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+      }, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.about__profile-card',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -95,15 +99,25 @@ export default function About() {
     <section ref={sectionRef} className="about" id="about">
       <div className="container">
         <div className="about__grid">
-          {/* Left — Image */}
+          {/* Left — ProfileCard */}
           <div className="about__image-col section-reveal">
-            <div ref={imageRef} className="about__image-frame parallax-img">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop&crop=face"
-                alt="Portrait"
-                className="about__image"
+            <div className="about__profile-card">
+              <ProfileCard
+                avatarUrl="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop&crop=face"
+                miniAvatarUrl="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+                name="UI Designer"
+                title="Visual & Brand Designer"
+                handle="portfolio"
+                status="Open for Projects"
+                contactText="Say Hello"
+                innerGradient="linear-gradient(145deg, #0a2a3a8c 0%, #00e5ff44 100%)"
+                behindGlowColor="rgba(0, 229, 255, 0.5)"
+                behindGlowEnabled
+                enableTilt
+                onContactClick={() => {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
               />
-              <div className="about__image-border" />
             </div>
             <div className="about__contact-card">
               <div className="about__contact-row">
