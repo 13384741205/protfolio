@@ -28,6 +28,8 @@ export default function App() {
   useReveal();
   return (
     <>
+      <div className="scanlines" />
+      <div className="noise-overlay" />
       <Navbar />
       <main>
         <Hero />
