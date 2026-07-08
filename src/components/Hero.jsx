@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import GooeyNav from './GooeyNav';
 import './Hero.css';
 
 function CyberpunkIntro() {
@@ -197,7 +198,7 @@ export default function Hero() {
         ease: 'power3.out',
       }, '-=0.5');
 
-      tl.fromTo('.hero__btn', {
+      tl.fromTo('.hero__actions', {
         opacity: 0,
         y: 30,
       }, {
@@ -215,28 +216,7 @@ export default function Hero() {
         duration: 0.6,
       }, '-=0.2');
 
-      // Magnetic button effect
-      document.querySelectorAll('.hero__btn').forEach((btn) => {
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          gsap.to(btn, {
-            x: x * 0.3,
-            y: y * 0.3,
-            duration: 0.3,
-            ease: 'power2.out',
-          });
-        });
-        btn.addEventListener('mouseleave', () => {
-          gsap.to(btn, {
-            x: 0,
-            y: 0,
-            duration: 0.5,
-            ease: 'elastic.out(1, 0.5)',
-          });
-        });
-      });
+
 
     }, heroRef);
 
@@ -278,13 +258,18 @@ export default function Hero() {
         </p>
         
         <div className="hero__actions">
-          <a href="#work" className="hero__btn hero__btn--primary magnetic">
-            View Projects
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-          <a href="#contact" className="hero__btn hero__btn--ghost magnetic">Contact Me</a>
+          <GooeyNav
+            items={[
+              { label: 'View Projects', href: '#work' },
+              { label: 'About Me', href: '#about' },
+              { label: 'My Strengths', href: '#strengths' },
+              { label: 'Contact Me', href: '#contact' },
+            ]}
+            initialActiveIndex={0}
+            animationTime={600}
+            particleCount={15}
+            colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+          />
         </div>
       </div>
 
