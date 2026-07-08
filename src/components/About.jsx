@@ -131,13 +131,11 @@ export default function About() {
               Design is not just what it looks like — it's how it <em>works</em>.
             </h2>
             <p className="about__text">
-              拥有5年以上UI设计经验的专业设计师，精通Figma设计工具，擅长网站界面设计与用户体验优化。
-              曾在国内多家中小型科技企业担任UI设计师，主导完成多个B端、C端网站项目。
+              A professional designer with 5+ years of UI design experience, proficient in Figma and skilled in website interface design and user experience optimization.
+ Previously served as UI designer at multiple tech companies in China, leading B2B and B2C website projects.
             </p>
             <p className="about__text">
-              具备国际化项目经验，曾为英国Blackpool多家风格餐厅提供网站设计与搭建服务，
-              熟悉不同文化背景下的设计审美与用户需求。注重设计细节，追求像素级完美，
-              善于将品牌理念融入视觉设计，打造兼具美感与实用性的数字产品。
+              Brings international project experience, having provided website design and development services for multiple restaurants in Blackpool, UK. Familiar with design aesthetics and user needs across different cultural backgrounds. Detail-oriented with a pursuit of pixel-perfect design, adept at integrating brand identity into visual design to create digital products that combine aesthetics with functionality.
             </p>
 
             {/* Stats */}

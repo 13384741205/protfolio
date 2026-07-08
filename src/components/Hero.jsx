@@ -274,7 +274,7 @@ export default function Hero() {
         </h1>
         
         <p className="hero__subtitle">
-          5年以上UI设计经验，专注于网站界面设计与用户体验优化。曾为英国Blackpool多家餐厅及国内企业打造兼具美感与实用性的数字产品，追求像素级完美。
+          5+ years of UI design experience, focusing on website interface design and user experience optimization. Created digital products that combine aesthetics with functionality for multiple restaurants in Blackpool, UK and domestic enterprises, pursuing pixel-perfect design.
         </p>
         
         <div className="hero__actions">

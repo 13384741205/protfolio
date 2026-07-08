@@ -86,7 +86,7 @@ export default function Contact() {
           Let's create<br />something <em>remarkable</em>
         </h2>
         <p className="contact__text section-reveal">
-          有项目需要合作或想加入团队？欢迎联系我，一起打造更出色的数字产品。
+          Have a project in mind or want to join the team? Feel free to reach out — let's create something remarkable together.
         </p>
         <div className="contact__actions section-reveal">
           <a href="mailto:1031381876@qq.com" className="contact__btn">

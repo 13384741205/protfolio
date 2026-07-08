@@ -6,32 +6,32 @@ const STRENGTHS = [
   {
     icon: '◎',
     title: 'Figma & Design Tools',
-    desc: '精通Figma、Sketch、Adobe XD等主流设计工具，高效完成从原型到交付的全流程设计工作。',
+    desc: 'Proficient in Figma, Sketch, Adobe XD and other mainstream design tools, efficiently handling the full workflow from prototyping to final delivery.',
   },
   {
     icon: '⬡',
-    title: '响应式设计',
-    desc: '精通响应式设计与移动端适配方案，确保网站在各种设备上都能完美展示。',
+    title: 'Responsive Design',
+    desc: 'Expert in responsive design and mobile adaptation solutions, ensuring websites display perfectly across all devices.',
   },
   {
     icon: '',
-    title: '设计系统构建',
-    desc: '具备完整的设计系统构建与维护经验，包含100+组件与规范，提升团队协作效率40%。',
+    title: 'Design System',
+    desc: 'Extensive experience in building and maintaining design systems with 100+ components and guidelines, boosting team collaboration efficiency by 40%.',
   },
   {
     icon: '◆',
-    title: '用户体验设计',
-    desc: '熟悉用户体验设计原则与交互设计方法论，注重设计细节，追求像素级完美。',
+    title: 'UX Design',
+    desc: 'Well-versed in UX design principles and interaction design methodologies, with a keen eye for detail and a pursuit of pixel-perfect design.',
   },
   {
     icon: '△',
-    title: '国际化项目经验',
-    desc: '曾为英国Blackpool多家餐厅提供网站设计与搭建服务，熟悉不同文化背景下的设计审美。',
+    title: 'International Experience',
+    desc: 'Provided website design and development services for multiple restaurants in Blackpool, UK, with deep understanding of design aesthetics across cultural contexts.',
   },
   {
     icon: '⎔',
-    title: '跨团队协作',
-    desc: '与产品、开发团队紧密配合，熟悉HTML/CSS基础，确保设计方案的高质量落地。',
+    title: 'Cross-team Collaboration',
+    desc: 'Works closely with product and development teams, familiar with HTML/CSS fundamentals, ensuring high-quality implementation of design solutions.',
   },
 ];
 
