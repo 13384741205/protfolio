@@ -31,19 +31,19 @@
 }
 
 .navbar__nav .gooey-nav-container nav ul {
-  gap: 0.25em;
-  padding: 0.4em 0.8em;
+  gap: 0.1em;
+  padding: 0.3em 0.6em;
 }
 
 .navbar__nav .gooey-nav-container nav ul li {
-  font-size: 12px;
+  font-size: 11px;
   font-family: var(--font-display);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .navbar__nav .gooey-nav-container nav ul li a {
-  padding: 0.5em 1em;
+  padding: 0.45em 0.9em;
 }
 
 .navbar__logo {
@@ -72,7 +72,7 @@
 
 .navbar__link {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   color: var(--text-secondary);
   transition: color 0.3s, text-shadow 0.3s;
